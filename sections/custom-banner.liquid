@@ -1,16 +1,39 @@
 <style>
   .custom-banner-wrapper {
-    font-family:'Helvetica Neue', sans-serif;
+    font-family: 'Helvetica Neue', sans-serif;
     color: #000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .banner-half {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 50vh;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .top-half {
+    background-image: url('{{ section.settings.top_half_image | image_url: width: 1500 }}');
+  }
+
+  .bottom-half {
+    background-image: url('{{ section.settings.bottom_half_image | image_url: width: 1500 }}');
   }
 
   .custom-banner-top {
-  padding: 20px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: transparent;
-}
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.85);
+  }
 
   .custom-banner-top .brand {
     font-weight: bold;
@@ -30,13 +53,23 @@
     text-decoration: none;
     color: #000;
     white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+
+  .custom-banner-top .gift-button:hover {
+    background-color: #ffeb3b;
+    transform: scale(1.05);
   }
 
   .custom-banner-main {
-  padding: 60px 30px;
-  text-align: left;
-  background-color: transparent;
-}
+    padding: 60px 30px;
+    text-align: left;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
 
   .custom-banner-main h2 {
     font-size: 40px;
@@ -50,113 +83,83 @@
   }
 
   .custom-banner-main .shop-button {
-    background: #000;
-    color: #fff;
-    padding: 12px 24px;
-    display: inline-block;
+    background: black;
+    color: white;
+    padding: 12px 24px !important;
+    display: inline-block !important;
     margin-top: 20px;
-    font-size: 14px;
     text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 16px;
+    width: auto !important;
+    white-space: nowrap;
+    max-width: max-content;
   }
 
-  .custom-banner-main .bottom-note {
-  font-size: 10px;
-  margin-top: 30px;
-  color: #333;
-  text-align: center;
-}
+  .custom-banner-main .shop-button:hover {
+    background: #333;
+    transform: scale(1.05);
+  }
 
-  .custom-banner-wrapper {
-  position: relative;
-  font-family: 'Helvetica Neue', sans-serif;
-  color: #000;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 600px;
-  padding: 30px 20px;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.custom-banner-wrapper::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: 
-    linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 50%), 
-    url('{{ section.settings.top_half_image | image_url: width: 1500 }}') top center / 100% 50% no-repeat,
-    url('{{ section.settings.bottom_half_image | image_url: width: 1500 }}') bottom center / 100% 50% no-repeat;
-  background-repeat: no-repeat;
-  background-size: 100% 50%, 100% 50%, 100% 50%;
-  background-position: top, top, bottom;
-  z-index: -1;
-}
-
-
-.custom-banner-wrapper > * {
-  position: relative;
-  z-index: 1;
-}
-
-.custom-banner-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 12px;
-  color: #444;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  margin-top: 30px;
-}
-.custom-banner {
-  position: relative;
-  overflow: hidden;
-}
+  .custom-banner-footer {
+    text-align: center;
+    font-size: 12px;
+    color: #444;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.85);
+    width: 100%;
+  }
 </style>
 
 <div class="custom-banner-wrapper">
-  <!-- Top Bar -->
-  <div class="custom-banner-top">
-    <div class="brand">{{ section.settings.brand_name }}</div>
-    <div class="center-text">{{ section.settings.center_text }}</div>
-    <a href="{{ section.settings.choose_gift_link }}" class="gift-button">{{ section.settings.choose_gift_label }}</a>
+
+  <!-- Top Background with Content -->
+  <div class="banner-half top-half">
+    <div class="custom-banner-top">
+      <div class="brand">{{ section.settings.brand_name }}</div>
+      <div class="center-text">{{ section.settings.center_text }}</div>
+      <a href="{{ section.settings.choose_gift_link }}" class="gift-button">{{ section.settings.choose_gift_label }}</a>
+    </div>
   </div>
 
-  <!-- Main Banner Content -->
+  <!-- Main Content Section -->
   <div class="custom-banner-main">
-  <h2>{{ section.settings.main_heading }}</h2>
-  <div class="subheading">{{ section.settings.subheading }}</div>
-  <a href="{{ section.settings.shop_now_link }}" class="shop-button">{{ section.settings.shop_now_label }}</a>
-</div>
+    <h2>{{ section.settings.main_heading }}</h2>
+    <div class="subheading">{{ section.settings.subheading }}</div>
+    <a href="{{ section.settings.shop_now_link }}" class="shop-button">{{ section.settings.shop_now_label }}</a>
+  </div>
 
-<div class="custom-banner-footer">
-  {{ section.settings.bottom_note }}
-</div>
+  <!-- Bottom Background with Footer Text -->
+  <div class="banner-half bottom-half">
+    <div class="custom-banner-footer">
+      {{ section.settings.bottom_note }}
+    </div>
+  </div>
 
+</div>
 
 {% schema %}
 {
   "name": "Custom Banner",
   "settings": [
     {
-  "type": "image_picker",
-  "id": "top_half_image",
-  "label": "Top Half Background Image"
-},
-{
-  "type": "image_picker",
-  "id": "bottom_half_image",
-  "label": "Bottom Half Background Image"
-},   {
+      "type": "image_picker",
+      "id": "top_half_image",
+      "label": "Top Half Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "bottom_half_image",
+      "label": "Bottom Half Background Image"
+    },
+    {
       "type": "text",
       "id": "brand_name",
       "label": "Brand Name",
-      "default": "TISSO VISON"
+      "default": "TISSO VISION"
     },
     {
       "type": "text",
