@@ -1,0 +1,75 @@
+{% schema %}
+{
+  "name": "Custom Product Grid",
+  "tag": "section",
+  "class": "custom-product-grid",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select product"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Custom Product Grid",
+      "blocks": [
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="product-grid">
+  {% for block in section.blocks %}
+    {% assign product = all_products[block.settings.product] %}
+    {% if product %}
+      <div class="product-card">
+        <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}" />
+        <h3>{{ product.title }}</h3>
+        <p>{{ product.price | money }}</p>
+        <button onclick="openPopup('{{ product.handle }}')">View</button>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<style>
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 40px;
+}
+.product-card {
+  text-align: center;
+  padding: 16px;
+  border: 1px solid #ddd;
+}
+.product-card img {
+  width: 100%;
+  height: auto;
+}
+.product-card button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #000;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+</style>
